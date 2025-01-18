@@ -1,1 +1,57 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+__pycache__/
+*.so
+
+# Django-specific files
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+
+# Environment variables
 .env
+
+# Virtual environments
+venv/
+env/
+
+# Static and media files
+staticfiles/
+media/
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Testing and CI tools
+.tox/
+.nox/
+.pytest_cache/
+coverage.xml
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Node.js dependencies
+node_modules/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Temporary files
+*.swp
+*~

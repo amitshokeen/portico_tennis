@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['loalhost', '127.0.0.1']
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+LOGIN_URL = '/login/'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -116,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Australia/Sydney'
 
 USE_I18N = True
 
