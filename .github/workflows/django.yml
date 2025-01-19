@@ -27,4 +27,4 @@ jobs:
         pip install -r ./portico_tennis/requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        python ./portico_tennis/manage.py test
