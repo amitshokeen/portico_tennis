@@ -6,7 +6,7 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     # Fields to display in the admin list view
-    list_display = ['username', 'email', 'phone_number', 'is_staff']
+    list_display = ['username', 'email', 'phone_number', 'is_active', 'is_staff']
     # Fields to search in the admin interface
     search_fields = ['username', 'email', 'phone_number']
     # Fields to display in the detail view
