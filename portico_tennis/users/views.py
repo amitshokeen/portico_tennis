@@ -20,7 +20,7 @@ def register(request):
             # Send email to the admin
             send_mail(
                 subject='New User Registration Request',
-                message=f'A new user has registered:\n\nUsername: {user.username}\nEmail: {user.email}\nPhone Number: {user.phone_number}',
+                message=f'A new user wants to play tennis at Portico:\n\nUsername: {user.username}\nEmail: {user.email}\nPhone Number: {user.phone_number}',
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[settings.ADMIN_EMAIL],  # Add the admin email in settings
             )
