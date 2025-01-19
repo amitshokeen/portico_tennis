@@ -35,6 +35,16 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_URL = '/login/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'samit753159@gmail.com' # sender (FROM) - the 'App Password' in gmail is configured for this.
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD')) # this is the 'App Password as configured in gmail for samit753159@gmail.com'
+DEFAULT_FROM_EMAIL = 'Portico Admin <samit753159@gmail.com>' 
+ADMIN_EMAIL = 'samit753159@gmail.com'  # receiver (TO) - since I am the acting admin of the web app at present, so this is the same as EMAIL_HOST_USER. Later I will change it to someone else's email - who volunteers to be the admin for Portico Tennis.
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -128,7 +138,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+
+# Directory to store collected static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Additional directories for static files (optional)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Add your static directory here
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
