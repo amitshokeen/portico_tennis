@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import login, authenticate
-from .forms import CustomUserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomPasswordResetForm
+#from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 
 def register(request):
     if request.method == 'POST':
@@ -39,15 +43,23 @@ def home(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)  # Log in the user
             return redirect('home')  # Redirect to the home page
+        else:
+            messages.error(request, "Invalid username or password. Please try again. Note that both fields may be case-sensitive.")
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'users/login.html', {'form': form})
 
 def user_logout(request):
     logout(request)  # Log out the user
     return redirect('login')  # Redirect to login page
+
+class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+    form_class = CustomPasswordResetForm
+    success_url = reverse_lazy('password_reset_done')
+    success_message = "Password reset instructions have been sent to your email."
