@@ -5,18 +5,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Portico Tennis</title>
 </head>
 <body>
     <div class="container">
-        <h2>Portico Tennis Register</h2>
+        <h2>Register for Portico Tennis</h2>
         <form method="post">
             {% csrf_token %}
+            <!--
             {{ form.as_p }}
+            -->
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">{{ form.username.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone">Phone Number</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="error-message">{{ form.phone_number.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_password1">Password</label>
+                <div class="password-wrapper">
+                    {{ form.password1 }}
+                    <i class="fa fa-eye toggle-password" id="togglePassword1"></i>
+                </div>
+                {% if form.password1.errors %}
+                    <div class="error-message">{{ form.password1.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Confirm Password</label>
+                <div class="password-wrapper">
+                    {{ form.password2 }}
+                    <i class="fa fa-eye toggle-password" id="togglePassword2"></i>
+                </div>
+                {% if form.password2.errors %}
+                    <div class="error-message">{{ form.password2.errors.0 }}</div>
+                {% endif %}
+            </div>
             <button type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function togglePasswordVisibility(inputId, iconId) {
+                const passwordInput = document.getElementById(inputId);
+                const toggleIcon = document.getElementById(iconId);
+                toggleIcon.addEventListener("click", function() {
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                        toggleIcon.classList.remove("fa-eye");
+                        toggleIcon.classList.add("fa-eye-slash");
+                    } else {
+                        passwordInput.type = "password";
+                        toggleIcon.classList.remove("fa-eye-slash");
+                        toggleIcon.classList.add("fa-eye");
+                    }
+                });
+            }
+
+            togglePasswordVisibility("id_password1", "togglePassword1");
+            togglePasswordVisibility("id_password2", "togglePassword2");
+        });
+    </script>
 </body>
 </html>
 

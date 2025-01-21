@@ -9,6 +9,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ['username', 'email', 'phone_number', 'is_active', 'is_staff']
     # Fields to search in the admin interface
     search_fields = ['username', 'email', 'phone_number']
+    list_filter = ['is_active']
     # Fields to display in the detail view
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('phone_number',)}),

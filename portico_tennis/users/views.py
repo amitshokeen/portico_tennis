@@ -16,11 +16,10 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             # Save the user as inactive
-            user = form.save(commit=False)
-            user.is_active = False
+            user = form.save(commit=False) # Save but don't commit to DB yet
+            user.is_active = False # Admin will activate manually
             user.save()
-            # login(request, user)
-            # return redirect('home')
+    
             # Send email to the admin
             send_mail(
                 subject='New User Registration Request',
