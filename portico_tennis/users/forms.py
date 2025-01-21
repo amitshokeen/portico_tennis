@@ -10,6 +10,12 @@ from django.contrib.auth.forms import PasswordResetForm
 INVITATION_CODES = ["TENNIS2025", "tennis2025", "PLAY2025", "play2025", "testnow"]
 
 class CustomUserCreationForm(UserCreationForm):
+    honey = forms.CharField(required=False)
+
+    def clean_hidden_field(self):
+        if self.cleaned_data['honey']:
+            raise forms.ValidationError("You are not allowed to register.")
+        
     invitation_code = forms.CharField(
         required=True,
         widget=forms.TextInput(attrs={
@@ -33,6 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
         }),
         label="Email Address"
     )
+    
     phone_number = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -40,6 +47,8 @@ class CustomUserCreationForm(UserCreationForm):
         }),
         label="Phone Number"
     )
+
+    agree_to_terms = forms.BooleanField(required=True, label="I agree to the terms and conditions")
 
     class Meta:
         model = CustomUser
@@ -49,9 +58,23 @@ class CustomUserCreationForm(UserCreationForm):
                 'class': 'form-control',
                 'placeholder': 'Enter your username'
             }),
+            'password1': forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your password'
+            }),
+            'password2': forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Confirm your password'
+            }),
         }
 
 class CustomAuthenticationForm(AuthenticationForm):
+    honey = forms.CharField(required=False)
+
+    def clean_hidden_field(self):
+        if self.cleaned_data['honey']:
+            raise forms.ValidationError("You are not allowed to register.")
+        
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',  # Bootstrap styling
@@ -77,3 +100,9 @@ class CustomPasswordResetForm(PasswordResetForm):
         }),
         label="Email Address"
     )
+
+    honey = forms.CharField(required=False)
+
+    def clean_hidden_field(self):
+        if self.cleaned_data['honey']:
+            raise forms.ValidationError("You are not allowed to register.")

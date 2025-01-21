@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 from django_ratelimit.decorators import ratelimit
 from django.utils.decorators import method_decorator
 
-@ratelimit(key='ip', rate='5/m', block=True)
+@ratelimit(key='ip', rate='10/m', block=True)
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -48,12 +48,12 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 @login_required
-@ratelimit(key='ip', rate='3/m', block=True)
+@ratelimit(key='ip', rate='5/m', block=True)
 def home(request):
     return render(request, 'home.html')
 
-@ratelimit(key='post:username', rate='3/m', block=True)
-@ratelimit(key='ip', rate='3/m', block=True)
+@ratelimit(key='post:username', rate='5/m', block=True)
+@ratelimit(key='ip', rate='5/m', block=True)
 def user_login(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(data=request.POST)
@@ -71,7 +71,7 @@ def user_logout(request):
     logout(request)  # Log out the user
     return redirect('login')  # Redirect to login page
 
-@method_decorator(ratelimit(key='ip', rate='3/m', block=True), name='dispatch')
+@method_decorator(ratelimit(key='ip', rate='5/m', block=True), name='dispatch')
 class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
     template_name = 'registration/password_reset_form.html'
     form_class = CustomPasswordResetForm

@@ -70,6 +70,10 @@
                     <div class="error-message">{{ form.password2.errors.0 }}</div>
                 {% endif %}
             </div>
+            <label>
+                {{ form.agree_to_terms }} I agree to the <a href="{% url 'terms' %}">Terms and Conditions</a>
+            </label>            
+            <input type="text" name="honey" style="display:none;">
             <button type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
